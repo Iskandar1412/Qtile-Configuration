@@ -38,7 +38,7 @@ def workspaces():
             margin_y=3,
             margin_x=0,
             padding_y=8,
-            padding_x=5,
+            padding_x=2,
             borderwidth=1,
             active=colors['active'],
             inactive=colors['inactive'],
@@ -46,14 +46,15 @@ def workspaces():
             highlight_method='block',
             urgent_alert_method='block',
             urgent_border=colors['urgent'],
-            this_current_screen_border=colors['focus'],
-            this_screen_border=colors['grey'],
-            other_current_screen_border=colors['dark'],
-            other_screen_border=colors['dark'],
+            this_current_screen_border=colors['active'],
+            this_screen_border=colors['inactive'],
+            other_current_screen_border=colors['active'],
+            other_screen_border=colors['inactive'],
+            block_highlight_text_color="#ffffff",
             disable_drag=True
         ),
         separator(),
-        widget.WindowName(**base(fg='focus'), fontsize=13, padding=5),
+        widget.WindowName(**base(fg='active'), fontsize=13, padding=5),
         separator(),
     ]
 
@@ -61,10 +62,10 @@ primary_widgets = [
     *workspaces(),
     separator(),
     
-    powerline('color4', 'dark'),
-    icon(bg="color4", text=' '), # Icon: nf-fa-download
+    powerline('color7', 'dark'),
+    icon(bg="color7", text=' '), # Icon: nf-fa-download
     widget.CheckUpdates(
-        background=colors['color4'],
+        background=colors['color7'],
         colour_have_updates=colors['text'],
         colour_no_updates=colors['text'],
         no_update_string='0',
@@ -73,24 +74,30 @@ primary_widgets = [
         custom_command='checkupdates',
     ),
     
-    powerline('color3', 'color4'),
-    icon(bg="color3", text=' '),  # Icon: nf-fa-feed
-    widget.Net(**base(bg='color3'), interface='wlp3s0'),
+    powerline('color6', 'color7'),
+    icon(bg="color6", text=' ', fg="color_white"),  # Icon: nf-fa-feed
+    widget.Net(**base(bg='color6', fg="color_white"), interface='wlp3s0', format=('{down} ↓↑ {up}'),use_bits='true'),
     
-    powerline('color2', 'color3'),
-    widget.CurrentLayoutIcon(**base(bg='color2'), scale=0.65),
+    powerline('color5', 'color6'),
+    icon(bg="color5", text='󰍛', fg="color_white"), # Icon: nf-md-memory
+    widget.Memory(**base(bg='color5', fg="color_white")),
+
+    powerline('color4', 'color5'),
+    widget.CurrentLayoutIcon(**base(bg='color4'), scale=0.65),
     #widget.CurrentLayout(fontsize=0),
     
+    powerline('color3', 'color4'),
+    icon(bg="color3", fontsize=15, text=' ', fg="color_white"), # Icon: nf-cod-calendar
+    widget.Clock(**base(bg='color3', fg="color_white"), format='%d/%m %A %H:%M:%S'),
+    
+    powerline('color2', 'color3'),
+    icon(bg="color2", text='󱊢', fg="color_white"), # Icon: nf-md-battery_medium
+    widget.Battery(**base(bg="color2", fg="color_white"), format="{percent:2.0%}"),
+    icon(bg="color2", text=' ', fg="color_white"), # Icon: nf-fa-volume_up 
+    widget.PulseVolume(**base('color_white', 'color2'), limit_max_volume=True),
+    
     powerline('color1', 'color2'),
-    icon(bg="color1", fontsize=15, text=' '), # Icon: nf-cod-calendar
-    widget.Clock(**base(bg='color1'), format='%d/%m/%Y - %H:%M:%S '),
-    
-    powerline('color3', 'color1'),
-    icon(bg="color3", text=' '), # Icon: nf-fa-volume_up 
-    widget.PulseVolume(**base('light', 'color3'), limit_max_volume=True),
-    
-    powerline('light', 'color3'),
-    widget.Systray(background=colors['light'], padding=5),
+    widget.Systray(background=colors['color1'],  padding=5),
 ]
 
 secondary_widgets = [
@@ -98,9 +105,9 @@ secondary_widgets = [
     separator(),
     powerline('color1', 'dark'),
     widget.CurrentLayoutIcon(**base(bg='color1'), scale=0.65),
-    widget.CurrentLayout(**base(bg='color1'), padding=5, fontsize=0),
+    #widget.CurrentLayout(**base(bg='color1'), padding=5, fontsize=0),
     powerline('color2', 'color1'),
-    widget.Clock(**base(bg='color2'), format='%d/%m/%Y - %H:%M:%S '),
+    widget.Clock(**base(bg='color1'), format='%d/%m %A %H:%M:%S'),
     powerline('dark', 'color2'),
 ]
 

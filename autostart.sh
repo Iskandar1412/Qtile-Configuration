@@ -14,7 +14,7 @@ nm-applet &
 
 volumeicon &
 
-cbatticon -u 5 &
+#cbatticon -u 5 &
 
 # Fondo de escritorio
 nitrogen --restore &

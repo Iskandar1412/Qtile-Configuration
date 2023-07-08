@@ -71,6 +71,9 @@ keys = [
     # Gitkraken
     Key([mod], 'g', lazy.spawn("gitkraken"), desc="Open GitKraken"),
 
+    # Code
+    Key([mod], 'p', lazy.spawn("code"), desc="Open VSCode"),
+
     # ------------ Hardware Configs ------------
 
     # Volume
@@ -84,10 +87,13 @@ keys = [
     
 
     # ------------ Config Key ------------
-    Key([mod], "p", lazy.spawn("code /home/iskandar/.config/qtile/config.py"), desc="Edit Keys"),
+    Key([mod], "e", lazy.spawn("code /home/iskandar/.config/qtile/settings/keys.py"), desc="Edit Keys"),
 
     # ------------ Config Captures ------------
     Key([mod], "s", lazy.spawn("scrot"), desc="Captura"),
     Key([mod, "shift"], "s", lazy.spawn("scrot -s"), desc="Capturas"),
-    
+     
+    # ------------ Maximize & Minimize ------------
+    Key([mod], "z", lazy.window.toggle_minimize(), desc="Restore minimized window & Minimize"),
+
 ]
